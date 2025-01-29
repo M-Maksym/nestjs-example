@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import * as dotenv from 'dotenv';
 
 import { configModule } from './configure.root';
+import { TokenModule } from './token/token.module';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ if (!mongoConnectionString) {
     AuthModule,
     configModule,
     MongooseModule.forRoot(mongoConnectionString),
+    TokenModule,
   ],
 })
 export class AppModule {}
