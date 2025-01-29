@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as dotenv from 'dotenv';
+
+import { configModule } from './configure.root';
+import { TokenModule } from './token/token.module';
+
 dotenv.config();
 
 const environment = process.env.NODE_ENV || 'development';
@@ -19,11 +22,9 @@ if (!mongoConnectionString) {
   imports: [
     UserModule,
     AuthModule,
-    ConfigModule.forRoot({
-      envFilePath: [`.env.${environment}`, '.env'],
-      isGlobal: true,
-    }),
+    configModule,
     MongooseModule.forRoot(mongoConnectionString),
+    TokenModule,
   ],
 })
 export class AppModule {}
