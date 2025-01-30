@@ -10,6 +10,8 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { ConfirmAccountDto } from './dto/confirm-account.dto';
+import { SignInDto } from './dto/signin.dto';
+import { IReadableUser } from 'src/user/interfaces/readable-user.interface';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -18,14 +20,21 @@ export class AuthController {
 
   @Post('/signUp')
   async signUp(
-    @Body(ValidationPipe) createUserDto: CreateUserDto,
+    @Body(new ValidationPipe()) createUserDto: CreateUserDto,
   ): Promise<boolean> {
     return this.authService.signUp(createUserDto);
   }
 
   @Get('/confirm')
-  async confirm(@Query(ValidationPipe) query: ConfirmAccountDto) {
+  async confirm(@Query(new ValidationPipe()) query: ConfirmAccountDto) {
     await this.authService.confirm(query.token);
     return true;
+  }
+
+  @Post('/signIn')
+  async signIn(
+    @Body(new ValidationPipe()) signInDto: SignInDto,
+  ): Promise<IReadableUser> {
+    return await this.authService.signIn(signInDto);
   }
 }

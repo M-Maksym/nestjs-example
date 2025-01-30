@@ -23,7 +23,7 @@ export const UserSchhema = new mongoose.Schema({
   },
   profession: { type: String, default: null },
   phone: { type: String, default: null },
-  role: { type: [String], required: true, enum: Object.values(roleEnum) },
+  roles: { type: [String], required: true, enum: Object.values(roleEnum) },
   password: { type: String, required: true },
 });
 
