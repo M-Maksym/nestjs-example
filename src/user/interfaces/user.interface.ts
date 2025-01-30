@@ -14,4 +14,5 @@ export interface IUser extends Document {
   readonly searchField: string;
   readonly role: Array<string>;
   readonly password: string;
+  status: string;
 }
