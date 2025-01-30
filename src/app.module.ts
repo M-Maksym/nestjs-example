@@ -6,6 +6,7 @@ import * as dotenv from 'dotenv';
 
 import { configModule } from './configure.root';
 import { TokenModule } from './token/token.module';
+import { MailModule } from './mail/mail.module';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ if (!mongoConnectionString) {
     configModule,
     MongooseModule.forRoot(mongoConnectionString),
     TokenModule,
+    MailModule,
   ],
 })
 export class AppModule {}
